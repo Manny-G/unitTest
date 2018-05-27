@@ -9,7 +9,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
-#include "insertionSort.cpp"
+#include "insertionSort.h"
 
 using namespace std;
 

@@ -17,7 +17,6 @@ namespace
 
 	bool unitTestInsSortInc()
 	{
-		//sortingClass scObj;
 		std::vector<int> toSort;
 		int diceRoll;
 

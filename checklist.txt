@@ -1,0 +1,19 @@
+Running unitTest in algorithms\unitTest\Debug
+unitTest.exe --gtest_output=xml:C:\Users\Manny\Documents\myLog.xml
+
+functions:
+	--C/C++ Build -> Settings -> Cross G++ Compiler -> Includes:
+		-functions -> sorting
+
+unitTest:
+	-C/C++ General -> Paths and Symbols -> Source Location -> Link Folder...
+		-/unitTest/sorting
+	
+	googleTestLib:
+		-C/C++ Build -> Settings -> Cross G++ Compiler -> Includes:
+			-unitTest -> googleTestLib
+			
+	testFiles:
+		-C/C++ Build -> Settings -> Cross G++ Compiler -> Includes:
+			-functions -> sorting
+			-unitTest -> googleTestLib
