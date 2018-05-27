@@ -12,13 +12,12 @@ namespace
 {
 	class sortTests : public ::testing::Test
 	{
-	protected:
-		sortingClass scInst;
+
 	};
 
 	bool unitTestInsSortInc()
 	{
-		sortingClass scObj;
+		//sortingClass scObj;
 		std::vector<int> toSort;
 		int diceRoll;
 
@@ -30,14 +29,14 @@ namespace
 			toSort.push_back(diceRoll);
 		}
 
-		for(decltype(toSort.size()) i = 0 ; i < toSort.size() ; i++)
+		for(size_t i = 0 ; i < toSort.size() ; i++)
 		{
 			std::cout << "in position "<< i << ": " << toSort[i] << std::endl;
 		}
 
 		std::cout << "\nsorting:" << std::endl;
 
-		scObj.insertionSortIncrementing(toSort);
+		insertionSortIncrementing(toSort);
 
 		bool isSorted = true;
 
@@ -46,7 +45,7 @@ namespace
 //		diceRoll = rand() % 10;
 //		toSort[diceRoll] = 100;
 
-		for(decltype(toSort.size()) i = 0 ; i < toSort.size() - 1 ; i++)
+		for(size_t i = 0 ; i < toSort.size() - 1 ; i++)
 		{
 			std::cout << "in position "<< i << ": " << toSort[i] << std::endl;
 

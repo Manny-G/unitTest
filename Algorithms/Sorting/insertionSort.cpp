@@ -7,18 +7,18 @@
 #include "insertionSort.h"
 using namespace std;
 
-void sortingClass::swap(int &a, int &b)
+void swap(int &a, int &b)
 {
 	int swapStore = b;
 	b = a;
 	a = swapStore;
 }
 
-void sortingClass::insertionSortIncrementing(vector<int> &arr)
+void insertionSortIncrementing(vector<int> &arr)
 {
-	for(auto i = 1 ; i < arr.size() ; i++)
+	for(unsigned int i = 1 ; i < arr.size() ; i++)
 	{
-		auto j = i - 1;
+		int j = i - 1;
 
 		while(j >= 0 && arr[j] > arr[j + 1])
 		{
@@ -28,7 +28,7 @@ void sortingClass::insertionSortIncrementing(vector<int> &arr)
 	}
 }
 
-void sortingClass::insertionSortDecrementing(vector<int> &arr)
+void insertionSortDecrementing(vector<int> &arr)
 {
 	for(auto i = arr.size() - 2 ; i < arr.size() ; i--)
 	{
@@ -42,9 +42,9 @@ void sortingClass::insertionSortDecrementing(vector<int> &arr)
 	}
 }
 
-int sortingClass::linearSearch(vector<int> &arr, int val)
+int linearSearch(vector<int> &arr, int val)
 {
-	for(auto i = 0 ; i < arr.size() ; i++)
+	for(unsigned int i = 0 ; i < arr.size() ; i++)
 	{
 		if(arr[i] == val)
 		{
@@ -55,11 +55,11 @@ int sortingClass::linearSearch(vector<int> &arr, int val)
 	return -1;
 }
 
-vector<int> sortingClass::convertToBinary(int val)
+vector<int> convertToBinary(int val)
 {
 	vector<int> binArr;
 
-	for(int i = 0 ; i < sizeof(val) * 8 ; i++)
+	for(unsigned int i = 0 ; i < sizeof(val) * 8 ; i++)
 	{
 		int shiftVal = val & (0x0001 << i);
 		binArr.push_back(shiftVal);
