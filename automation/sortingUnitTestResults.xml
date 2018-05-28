@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="4" failures="2" disabled="0" errors="0" timestamp="2018-05-28T15:12:45" time="0.001" name="AllTests">
+  <testsuite name="sortTests" tests="2" failures="1" disabled="0" errors="0" time="0">
+    <testcase name="unitTestInsSortInc" status="run" time="0" classname="sortTests" />
+    <testcase name="willFail" status="run" time="0" classname="sortTests">
+      <failure message="../testFiles/sortTests.cpp:71&#x0A;Value of: false&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[../testFiles/sortTests.cpp:71
+Value of: false
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="diffTests" tests="2" failures="1" disabled="0" errors="0" time="0.001">
+    <testcase name="willPass" status="run" time="0" classname="diffTests" />
+    <testcase name="willFail" status="run" time="0" classname="diffTests">
+      <failure message="../testFiles/sortTests.cpp:81&#x0A;Value of: false&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[../testFiles/sortTests.cpp:81
+Value of: false
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

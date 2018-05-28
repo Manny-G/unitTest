@@ -15,6 +15,11 @@ namespace
 
 	};
 
+	class diffTests : public ::testing::Test
+	{
+
+	};
+
 	bool unitTestInsSortInc()
 	{
 		std::vector<int> toSort;
@@ -59,6 +64,21 @@ namespace
 	TEST_F(sortTests, unitTestInsSortInc)
 	{
 		EXPECT_TRUE(unitTestInsSortInc());
+	}
+
+	TEST_F(sortTests, willFail)
+	{
+		EXPECT_TRUE(false);
+	}
+
+	TEST_F(diffTests, willPass)
+	{
+		EXPECT_TRUE(unitTestInsSortInc());
+	}
+
+	TEST_F(diffTests, willFail)
+	{
+		EXPECT_TRUE(false);
 	}
 }
 
