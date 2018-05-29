@@ -7,7 +7,7 @@
 
 #include "gtest/gtest.h"
 
-#include "sortTests.cpp"
+#include "unitTests.cpp"
 
 int main(int argc, char **argv)
 {
