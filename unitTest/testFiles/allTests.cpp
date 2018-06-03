@@ -1,13 +1,4 @@
-/*
- * allTests.cpp
- *
- *  Created on: May 20, 2018
- *      Author: manny
- */
-
 #include "gtest/gtest.h"
-
-#include "unitTests.cpp"
 
 int main(int argc, char **argv)
 {

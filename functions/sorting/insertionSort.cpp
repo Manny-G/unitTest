@@ -1,9 +1,3 @@
-/*
- * Insertion_Sort.cpp
- *
- *  Created on: May 21, 2018
- *      Author: manny
- */
 #include "insertionSort.h"
 using namespace std;
 
@@ -66,4 +60,44 @@ vector<int> convertToBinary(int val)
 	}
 
 	return binArr;
+}
+
+bool unitTestInsSortInc()
+{
+	vector<int> toSort;
+	int diceRoll;
+
+	srand(time(NULL));
+
+	for(int i = 0 ; i < 10 ; i++)
+	{
+		diceRoll = rand() % 11;
+		toSort.push_back(diceRoll);
+	}
+
+	for(size_t i = 0 ; i < toSort.size() ; i++)
+	{
+		cout << "in position "<< i << ": " << toSort[i] << endl;
+	}
+
+	cout << "\nsorting:" << endl;
+
+	insertionSortIncrementing(toSort);
+
+	bool isSorted = true;
+
+	// malicious: uncommenting will cause the test to fail if
+	// diceRoll != 9, because it will mess with the order
+//		diceRoll = rand() % 10;
+//		toSort[diceRoll] = 100;
+
+	for(size_t i = 0 ; i < toSort.size() - 1 ; i++)
+	{
+		cout << "in position "<< i << ": " << toSort[i] << endl;
+
+		if(toSort[i] > toSort[i + 1])
+			return false;
+	}
+
+	return isSorted;
 }
