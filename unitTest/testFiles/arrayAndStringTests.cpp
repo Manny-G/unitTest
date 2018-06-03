@@ -52,5 +52,13 @@ namespace testFixture
 		EXPECT_TRUE(oneAway("pale", "bale"));
 		EXPECT_FALSE(oneAway("pale", "bae"));
 	}
+
+	TEST_F(unitTests, stringCompression)
+	{
+		EXPECT_EQ("a2bcd3e", stringCompression("aabcddde"));
+		EXPECT_EQ("a3bc2de3", stringCompression("aaabccdeee"));
+		EXPECT_EQ("ba3bc2ade3ad", stringCompression("baaabccadeeead"));
+		EXPECT_EQ("abcdefdefab", stringCompression("abcdefdefab"));
+	}
 }
 

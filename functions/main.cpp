@@ -5,62 +5,27 @@
  *      Author: manny
  */
 
-#include <iostream>
-#include <vector>
-#include <stdlib.h>
-#include <time.h>
 #include "insertionSort.h"
+#include "arraysAndStrings.h"
 
 using namespace std;
 
 int main()
 {
-	/*vector<int> toSort;
-	int diceRoll;
+	uint myArr[arrayDim][arrayDim];
+	uint **arrPtr;
+	genSqrArr(myArr);
+	printArr(myArr);
 
-	srand(time(NULL));
+	cout << "rotate" << endl;
+	rotate(arrPtr,myArr);
 
-	for(int i = 0 ; i < 10 ; i++)
-	{
-		diceRoll = rand() % 11;
-		toSort.push_back(diceRoll);
-	}
+	printArr(arrPtr);
 
-	for(auto i = 0 ; i < toSort.size() ; i++)
-	{
-		cout << "in position "<< i << ": " << toSort[i] << endl;
-	}
+	cout << "rotateSwap" << endl;
+	rotateSwap(myArr);
 
-	cout << "\nsorting:" << endl;
-
-	insertionSortIncrementing(toSort);
-
-	for(auto i = 0 ; i < toSort.size() ; i++)
-	{
-		cout << "in position "<< i << ": " << toSort[i] << endl;
-	}
-
-	cout << "\nmore sorting:" << endl;
-
-	insertionSortDecrementing(toSort);
-
-	for(auto i = 0 ; i < toSort.size() ; i++)
-	{
-		cout << "in position "<< i << ": " << toSort[i] << endl;
-	}
-
-	diceRoll = rand() % 11;
-	cout << "\nsearching for value " << diceRoll << endl;
-	cout << linearSearch(toSort, diceRoll);
-
-	diceRoll = rand() % 100;
-	cout << "\n converting value " << diceRoll << endl;
-
-	vector<int> binArr = convertToBinary(diceRoll);
-	for(auto i = 0 ; i < binArr.size() ; i++)
-	{
-		cout << "in position "<< i << ": " << binArr[i] << endl;
-	}*/
+	printArr(myArr);
 
 	return 0;
 

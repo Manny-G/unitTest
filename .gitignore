@@ -139,7 +139,6 @@ venv.bak/
 .mypy_cache/
 
 ### Eclipse ###
-
 .metadata
 bin/
 tmp/

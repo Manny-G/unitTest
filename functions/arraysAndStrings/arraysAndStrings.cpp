@@ -1,6 +1,10 @@
 #include "arraysAndStrings.h"
 using namespace std;
 
+/********************
+*** Unique String ***
+*********************/
+
 bool uniqueString(string in)
 {
 	bool array[128];
@@ -40,6 +44,9 @@ bool uniqueStrNoDataStructs(string in)
 	return true;
 }
 
+/*********************
+*** Is Permutation ***
+**********************/
 
 bool isPermutation(string str1, string str2)
 {
@@ -76,6 +83,10 @@ bool isPermutation(string str1, string str2)
 	cout << "hey that was good" << endl;
 	return true;
 }
+
+/**************
+*** URL-ify ***
+***************/
 
 string urlIfy(string in, uint len)
 {
@@ -114,6 +125,10 @@ string urlIfy(string in, uint len)
 	cout << "output is: " << out << endl;
 	return out;
 }
+
+/*****************************
+*** Palindrome Permutation ***
+******************************/
 
 bool palinPerm(string in)
 {
@@ -162,6 +177,10 @@ bool palinPerm(string in)
 	else
 		return true;
 }
+
+/***************
+*** One Away ***
+****************/
 
 uint maxVal(uint firstVal, uint secondVal)
 {
@@ -237,3 +256,162 @@ bool oneAway(string str1, string str2)
 	cout << str1 << " is one away from " << str2 << endl;
 	return true;
 }
+
+/*************************
+*** String Compression ***
+**************************/
+
+string stringCompression(string in)
+{
+	cout << "input is " << in << endl;
+	if(in.empty() or in.size() < 2)
+		return in;
+	string out;
+	cout << "what is the size of out? " << out.size()
+		 << ", is it empty? " << out.empty() << endl;
+	uint consCount = 0;
+
+	for(uint i = 0 ; i < in.size() ; i++)
+	{
+		if(i == 0)
+			consCount ++;
+
+		else if( i == (in.size() - 1) )
+		{
+			if(in[i - 1] != in[i])
+			{
+				out += static_cast<char>(in[i - 1]);
+
+				if(consCount > 1)
+					// assume that no consecutive count is greater than 9
+					out += static_cast<char>(consCount) + 0x30;
+
+				out += static_cast<char>(in[i]);
+			}
+
+			else
+			{
+				consCount++;
+				out += static_cast<char>(in[i]);
+
+				// assume that no consecutive count is greater than 9
+				out += static_cast<char>(consCount) + 0x30;
+			}
+		}
+
+		else
+		{
+			if(in[i - 1] == in[i])
+				consCount++;
+
+			else if(in[i - 1] != in[i] && consCount > 1)
+			{
+				out += static_cast<char>(in[i - 1]);
+
+				// assume that no consecutive count is greater than 9
+				out += static_cast<char>(consCount) + 0x30;
+				consCount = 1;
+			}
+
+			else
+				out += static_cast<char>(in[i - 1]);
+		}
+	}
+
+	cout << "out looks like this: " << out << endl;
+
+	return out;
+
+}
+
+/********************
+*** Rotate Matrix ***
+*********************/
+
+void swap(uint &a, uint &b)
+{
+	uint swapStore = b;
+	b = a;
+	a = swapStore;
+}
+
+void printArr(uint (&arr)[arrayDim][arrayDim])
+{
+	for(uint i = 0 ; i < arrayDim ; i++)
+	{
+		for(uint j = 0 ; j < arrayDim ; j++)
+		{
+			cout << arr[i][j] << ' ';
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+}
+
+void printArr(uint **(&ptr))
+{
+	for(uint i = 0 ; i < arrayDim ; i++)
+	{
+		for(uint j = 0 ; j < arrayDim ; j++)
+		{
+			cout << ptr[i][j] << ' ';
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+}
+
+void genSqrArr(uint (&arr)[arrayDim][arrayDim])
+{
+	uint count = 0;
+
+	for(uint i = 0 ; i < arrayDim ; i++)
+	{
+		for(uint j = 0 ; j < arrayDim ; j++)
+		{
+			arr[i][j] = count;
+			count++;
+		}
+	}
+}
+
+void rotate(uint **(&ptr), uint arr[arrayDim][arrayDim])
+{
+	ptr = new uint*[arrayDim];
+
+	for(uint i = 0 ; i < arrayDim ; i++)
+		ptr[i] = new uint[arrayDim];
+
+	for(uint i = 0 ; i < arrayDim ; i++)
+	{
+		for(uint j = 0 ; j < arrayDim ; j++)
+		{
+			ptr[arrayDim - 1 - j][i] = arr[i][j];
+		}
+	}
+}
+
+void rotateSwap(uint (&arr)[arrayDim][arrayDim])
+{
+	uint count = 1;
+
+	for(uint i = 0 ; i < arrayDim / 2; i++)
+	{
+		for(uint j = i ; j < arrayDim - count ; j++)
+		{
+			swap(arr[i][j], arr[arrayDim - 1 - j][i]);
+			swap(arr[i][j], arr[j][arrayDim - 1 - i]);
+			swap(arr[j][arrayDim - 1 - i], arr[arrayDim - 1 - i][arrayDim - 1 - j]);
+		}
+
+		count++;
+	}
+}
+
+/******************
+*** Zero Matrix ***
+*******************/
+
+
