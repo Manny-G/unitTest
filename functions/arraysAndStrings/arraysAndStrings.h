@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <time.h>
 
 using uint = unsigned int;
 
@@ -31,5 +33,10 @@ void printArr(uint **(&ptr));
 void genSqrArr(uint (&arr)[arrayDim][arrayDim]);
 void rotate(uint **(&ptr), uint arr[arrayDim][arrayDim]);
 void rotateSwap(uint (&arr)[arrayDim][arrayDim]);
+
+const uint numRandArrRows = 6, numRandArrCols = 4;
+void printRandMatrix(uint **ptr);
+void genRandMatrix(uint **(&ptr));
+void zeroMatrix(uint **(&ptr));
 
 #endif /* ARRAYSANDSTRINGS_ARRAYSANDSTRINGS_H_ */

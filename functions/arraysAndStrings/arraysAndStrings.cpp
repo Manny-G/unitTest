@@ -413,5 +413,64 @@ void rotateSwap(uint (&arr)[arrayDim][arrayDim])
 /******************
 *** Zero Matrix ***
 *******************/
+void printRandMatrix(uint **ptr)
+{
+	for(uint i = 0 ; i < numRandArrRows ; i++)
+	{
+		for(uint j = 0 ; j < numRandArrCols ; j++)
+		{
+			cout << ptr[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
 
+void genRandMatrix(uint **(&ptr))
+{
+	uint diceRoll;
+	srand(time(NULL));
 
+	ptr = new uint*[numRandArrRows];
+	for(uint i = 0 ; i < numRandArrRows ; i++)
+		ptr[i] = new uint[numRandArrCols];
+
+	for(uint i = 0 ; i < numRandArrRows ; i++)
+	{
+		for(uint j = 0 ; j < numRandArrCols ; j++)
+		{
+			ptr[i][j] = rand() % 10;
+		}
+	}
+}
+
+void zeroMatrix(uint **(&ptr))
+{
+	bool arrRows[numRandArrRows], arrCols[numRandArrCols];
+
+	for(bool &i : arrRows)
+		i = false;
+
+	for(bool &i : arrCols)
+		i = false;
+
+	for(uint i = 0 ; i < numRandArrRows ; i++)
+	{
+		for(uint j = 0 ; j < numRandArrCols ; j++)
+		{
+			if(ptr[i][j] == 0)
+			{
+				arrRows[i] = true;
+				arrCols[j] = true;
+			}
+		}
+	}
+
+	for(uint i = 0 ; i < numRandArrRows ; i++)
+	{
+		for(uint j = 0 ; j < numRandArrCols ; j++)
+		{
+			if(arrRows[i] == true || arrCols[j] == true)
+				ptr[i][j] = 0;
+		}
+	}
+}
