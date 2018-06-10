@@ -2,23 +2,14 @@
 #define SINGLYLINKEDLIST_H_
 
 #include <iostream>
+#include <vector>
+
+using uint = unsigned int;
 
 template<class T>
 class singlyLinkedList
 {
-public:
-	singlyLinkedList();
-
-	singlyLinkedList(T val);
-
-	void append(T val);
-
-	void remove(T val);
-
-	void print();
-
 private:
-
 	class Node
 	{
 	public:
@@ -37,32 +28,50 @@ private:
 
 		}
 
-		T getNodeVal()
-		{
-			return data;
-		}
-
-		void setNodeVal(T val)
-		{
-			data = val;
-		}
-
-		Node* getNodeNextPtr()
-		{
-			return next;
-		}
-
-		void setNodeNextPtr(Node* ptr)
-		{
-			next = ptr;
-		}
-
-	private:
 		T data;
 		Node *next;
 	};
 
 	Node *head;
+	Node *tail;
+	uint size;
+
+public:
+	// constructors
+	singlyLinkedList();
+	singlyLinkedList(T val);
+
+	bool operator==(const singlyLinkedList& rhs) const
+	{
+		Node *rPtr = rhs.head, *tPtr = this -> head;
+
+		if( (rPtr == nullptr && tPtr != nullptr) || (rPtr != nullptr && tPtr == nullptr) )
+			return false;
+
+		while(rPtr != nullptr && tPtr != nullptr)
+		{
+			if(rPtr -> data != tPtr -> data)
+				return false;
+
+			rPtr = rPtr -> next;
+			tPtr = tPtr -> next;
+
+			if( (rPtr == nullptr && tPtr != nullptr) || (rPtr != nullptr && tPtr == nullptr) )
+				return false;
+		}
+
+		return true;
+	}
+
+	// base linked list functionality
+	void append(T val);
+	void remove(T val);
+	void remove(Node *prev, Node *del);
+	bool findInVec(std::vector<T> vec, T value);
+
+	// extra
+	void print();
+	void removeDuplicates();
 };
 
 #include "singlyLinkedList.cpp"

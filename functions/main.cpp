@@ -8,6 +8,7 @@
 #include "insertionSort.h"
 #include "arraysAndStrings.h"
 #include "singlyLinkedList.h"
+#include "linkedListFunctions.h"
 
 using namespace std;
 
@@ -37,22 +38,21 @@ int main()
 	zeroMatrix(randArrPtr);
 	printRandMatrix(randArrPtr);*/
 
-	singlyLinkedList<int> temp;
+	singlyLinkedList<int> temp1 = genBaseListTest1();
+	singlyLinkedList<int> temp2 = genSolutionListTest1();
+	temp1.print();
+	temp2.print();
 
-	for(uint i = 0; i < 10 ; i++)
-	{
-		temp.append(i);
-	}
+	std::cout << "what is == " << (temp1 == temp2) << std::endl;
 
-	temp.print();
+	temp1.removeDuplicates();
+	temp1.print();
 
-	temp.remove(6);
+	std::cout << "what is == " << (temp1 == temp2) << std::endl;
 
-	temp.print();
-
-	temp.remove(3);
-
-	temp.print();
+	temp1.append(3);
+	temp1.print();
+	std::cout << "what is == " << (temp1 == temp2) << std::endl;
 
 	return 0;
 

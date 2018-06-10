@@ -7,5 +7,10 @@ namespace testFixture
 	{
 		EXPECT_TRUE(unitTestInsSortInc());
 	}
+
+	TEST_F(unitTests, unitTestInsSortIncRec)
+	{
+		EXPECT_TRUE(unitTestInsSortIncRec());
+	}
 }
 

@@ -7,10 +7,16 @@
 #include <stdlib.h>
 #include <time.h>
 
+using uint = unsigned int;
+
 // implementations
 void swap(int &a, int &b);
 
-void insertionSortIncrementing(std::vector<int> &arr);
+template<typename T>
+void insertionSortIncrementing(std::vector<T> &arr);
+
+template<typename T>
+void insertionSortIncrementingRecursion(std::vector<T> &arr, uint itr);
 
 void insertionSortDecrementing(std::vector<int> &arr);
 
@@ -20,6 +26,7 @@ std::vector<int> convertToBinary(int val);
 
 // unit test functions
 bool unitTestInsSortInc();
+bool unitTestInsSortIncRec();
 
 
 
