@@ -78,6 +78,10 @@ public:
 	bool palindromeRecursive();
 	void palindromeRecursive(Node *&snap, Node *itr, bool &cond, bool &midPt);
 
+	uint findKthToLast(uint k);
+	uint findKthToLastRecursive(uint k);
+	Node* findKthToLastRecursive(Node* itr, uint k, uint &count);
+
 };
 
 #include "linkedList.cpp"

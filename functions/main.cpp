@@ -71,7 +71,7 @@ int main()
 
 
 	// testing l.l. remove duplicates
-	LinkedList<int> temp1 = genBaseListTest1();
+	/*LinkedList<int> temp1 = genBaseListTest1();
 	LinkedList<int> temp2 = genSolutionListTest1();
 	temp1.print();
 	temp2.print();
@@ -85,7 +85,7 @@ int main()
 
 	temp1.append(3);
 	temp1.print();
-	std::cout << "what is == " << (temp1 == temp2) << std::endl;
+	std::cout << "what is == " << (temp1 == temp2) << std::endl;*/
 
 
 	// Testing l.l. recursive palindrome
@@ -94,6 +94,13 @@ int main()
 	bool cond = temp3.palindromeRecursive();
 
 	std::cout << "what is cond? " << cond << std::endl;*/
+
+	LinkedList<int> temp1 = genBaseListTest1();
+	temp1.print();
+	uint val = temp1.findKthToLast(8);
+	cout << "val is " << val << endl;
+	uint valRec = temp1.findKthToLastRecursive(8);
+	cout << "valRec is " << valRec << endl;
 
 	return 0;
 

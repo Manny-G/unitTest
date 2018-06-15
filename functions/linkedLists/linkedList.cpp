@@ -272,6 +272,48 @@ void LinkedList<T>::palindromeRecursive(Node *&snap, Node *itr, bool &cond, bool
 	return;
 }
 
+template <typename T>
+uint LinkedList<T>::findKthToLast(uint k)
+{
+	Node *ret = head, *loop = head;
+	uint size = 0;
+
+	while(loop != nullptr)
+	{
+		size++;
+		loop = loop -> next;
+	}
+
+	for(uint i = 0 ; i < (size - k); i++)
+		ret = ret -> next;
+
+	return ret -> data;
+}
+
+template <typename T>
+uint LinkedList<T>::findKthToLastRecursive(uint k)
+{
+	uint count = 0;
+	Node *itr = head;
+	Node *ret = findKthToLastRecursive(itr, k, count);
+	return ret -> data;
+}
+
+template <typename T>
+typename LinkedList<T>::Node* LinkedList<T>::findKthToLastRecursive(Node* itr, uint k, uint &count)
+{
+	if(itr == nullptr)
+		return nullptr;
+
+	Node *ret = findKthToLastRecursive(itr -> next, k, count);
+
+	count++;
+	if(count == k)
+		ret = itr;
+
+	return ret;
+}
+
 
 
 #endif
