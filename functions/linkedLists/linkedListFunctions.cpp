@@ -1,9 +1,9 @@
 #include "linkedListFunctions.h"
 
 // Test 1
-singlyLinkedList<int> genBaseListTest1()
+LinkedList<int> genBaseListTest1()
 {
-	singlyLinkedList<int> genList;
+	LinkedList<int> genList;
 	genList.append(5);
 	genList.append(3);
 	genList.append(10);
@@ -21,9 +21,9 @@ singlyLinkedList<int> genBaseListTest1()
 	return genList;
 }
 
-singlyLinkedList<int> genSolutionListTest1()
+LinkedList<int> genSolutionListTest1()
 {
-	singlyLinkedList<int> genList;
+	LinkedList<int> genList;
 	genList.append(3);
 	genList.append(10);
 	genList.append(5);
@@ -39,3 +39,21 @@ singlyLinkedList<int> genSolutionListTest1()
 	return genList;
 }
 
+// Test 2
+LinkedList<int> genBaseListTest2()
+{
+	LinkedList<int> genList;
+	genList.append('d');
+	genList.append('a');
+	genList.append('m');
+	genList.append('m');
+	genList.append('i');
+	genList.append('t');
+	genList.append('i');
+	genList.append('m');
+	genList.append('m');
+	genList.append('a');
+	genList.append('d');
+
+	return genList;
+}
