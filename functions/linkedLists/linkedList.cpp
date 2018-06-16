@@ -68,7 +68,7 @@ LinkedList<T>::LinkedList(const LinkedList<T> &rhs)
 }
 
 template <typename T>
-LinkedList<T>& LinkedList<T>::operator=(const LinkedList&rhs)
+const LinkedList<T>& LinkedList<T>::operator=(const LinkedList&rhs)
 {
 	clear();
 	Node<T> *itr = rhs.tail;
@@ -78,8 +78,9 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList&rhs)
 		this -> append(itr);
 		itr = itr -> prev;
 	}
-}
 
+	return *this;
+}
 
 template <typename T>
 bool LinkedList<T>::operator==(const LinkedList& rhs) const
@@ -485,7 +486,6 @@ Node<T> LinkedList<T>::loopDetection()
 
 	return slow;
 }
-
 
 
 #endif

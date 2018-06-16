@@ -46,7 +46,7 @@ public:
 	void clear();
 	~LinkedList();
 	LinkedList(const LinkedList &rhs);
-	LinkedList& operator=(const LinkedList &rhs);
+	const LinkedList &operator=(const LinkedList &rhs);
 	bool operator==(const LinkedList &rhs) const;
 
 	// base linked list functionality
