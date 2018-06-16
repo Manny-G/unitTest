@@ -95,14 +95,16 @@ int main()
 
 	std::cout << "what is cond? " << cond << std::endl;*/
 
-	LinkedList<int> temp1 = genBaseListTest1();
+
+	// Testing l.l. find Kth to last node
+	/*LinkedList<int> temp1 = genBaseListTest1();
 	temp1.print();
 	uint val = temp1.findKthToLast(8);
 	cout << "val is " << val << endl;
 	uint valRec = temp1.findKthToLastRecursive(8);
-	cout << "valRec is " << valRec << endl;
+	cout << "valRec is " << valRec << endl;*/
+
 
 	return 0;
-
 }
 

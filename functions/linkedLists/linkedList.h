@@ -6,35 +6,36 @@
 
 using uint = unsigned int;
 
+template <typename T>
+class Node
+{
+public:
+	Node() : data(0), next(nullptr), prev(nullptr)
+	{
+
+	}
+
+	Node(T val) : data(val), next(nullptr), prev(nullptr)
+	{
+
+	}
+
+	Node(T val, Node* nextPtr) : data(val), next(nextPtr), prev(nullptr)
+	{
+
+	}
+
+	T data;
+	Node *next;
+	Node *prev;
+};
+
 template<typename T>
-class LinkedList
+class LinkedList : public Node<T>
 {
 private:
-	class Node
-	{
-	public:
-		Node() : data(0), next(nullptr), prev(nullptr)
-		{
-
-		}
-
-		Node(T val) : data(val), next(nullptr), prev(nullptr)
-		{
-
-		}
-
-		Node(T val, Node* nextPtr) : data(val), next(nextPtr), prev(nullptr)
-		{
-
-		}
-
-		T data;
-		Node *next;
-		Node *prev;
-	};
-
-	Node *head;
-	Node *tail;
+	Node<T> *head;
+	Node<T> *tail;
 	uint size;
 
 public:
@@ -44,7 +45,7 @@ public:
 
 	bool operator==(const LinkedList& rhs) const
 	{
-		Node *rPtr = rhs.head, *tPtr = this -> head;
+		Node<T> *rPtr = rhs.head, *tPtr = this -> head;
 
 		if( (rPtr == nullptr && tPtr != nullptr) || (rPtr != nullptr && tPtr == nullptr) )
 			return false;
@@ -66,8 +67,10 @@ public:
 
 	// base linked list functionality
 	void append(T val);
-	void remove(Node *prev, Node *del);
-	void remove(Node *del);
+	void remove(Node<T> *prev, Node<T> *del);
+	void remove(Node<T> *del);
+	Node<T> *returnHead();
+	Node<T> *returnTail();
 	bool findInVec(std::vector<T> vec, T value);
 
 	// extra
@@ -76,11 +79,15 @@ public:
 	void removeDuplicatesSelfContained();
 
 	bool palindromeRecursive();
-	void palindromeRecursive(Node *&snap, Node *itr, bool &cond, bool &midPt);
+	void palindromeRecursive(Node<T> *&snap, Node<T> *itr, bool &cond, bool &midPt);
 
 	uint findKthToLast(uint k);
 	uint findKthToLastRecursive(uint k);
-	Node* findKthToLastRecursive(Node* itr, uint k, uint &count);
+	Node<T>* findKthToLastRecursive(Node<T>* itr, uint k, uint &count);
+
+	uint intersectingLists(LinkedList a, LinkedList b);
+
+	Node<T> loopDetection();
 
 };
 

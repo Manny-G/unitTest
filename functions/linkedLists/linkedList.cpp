@@ -13,7 +13,7 @@ LinkedList<T>::LinkedList()
 template<typename T>
 LinkedList<T>::LinkedList(T val)
 {
-	head = new Node(val);
+	head = new Node<T>(val);
 	tail = head;
 	size = 1;
 }
@@ -21,7 +21,7 @@ LinkedList<T>::LinkedList(T val)
 template<typename T>
 void LinkedList<T>::append(T val)
 {
-	Node *itr = new Node(val);
+	Node<T> *itr = new Node<T>(val);
 	if(head != nullptr)
 	{
 		itr -> next = head;
@@ -36,7 +36,7 @@ void LinkedList<T>::append(T val)
 }
 
 template<typename T>
-void LinkedList<T>::remove(Node *prev, Node *del)
+void LinkedList<T>::remove(Node<T> *prev, Node<T> *del)
 {
 	if(del == head)
 	{
@@ -85,9 +85,9 @@ void LinkedList<T>::remove(Node *prev, Node *del)
 }
 
 template<typename T>
-void LinkedList<T>::remove(Node *del)
+void LinkedList<T>::remove(Node<T> *del)
 {
-	Node *prev = head;
+	Node<T> *prev = head;
 	if(del == head)
 	{
 		if(del -> next != nullptr)
@@ -133,12 +133,24 @@ void LinkedList<T>::remove(Node *del)
 
 	size--;
 	return;
+}
+
+template <typename T>
+Node<T> *LinkedList<T>::returnHead()
+{
+	return head;
+}
+
+template <typename T>
+Node<T> *LinkedList<T>::returnTail()
+{
+	return tail;
 }
 
 template<typename T>
 void LinkedList<T>::print()
 {
-	Node* ptr = head;
+	Node<T>* ptr = head;
 
 	std::cout << "Current size: " << size << std::endl;
 	std::cout << "Forward:" << std::endl;
@@ -176,7 +188,7 @@ bool LinkedList<T>::findInVec(std::vector<T> vec, T value)
 template<typename T>
 void LinkedList<T>::removeDuplicates()
 {
-	Node *lead = head, *lag = lead;
+	Node<T> *lead = head, *lag = lead;
 	std::vector<T> vec;
 
 	if(lead == nullptr)
@@ -207,7 +219,7 @@ void LinkedList<T>::removeDuplicates()
 template <typename T>
 void LinkedList<T>::removeDuplicatesSelfContained()
 {
-	Node *itr = head, *loop, *decoy;
+	Node<T> *itr = head, *loop, *decoy;
 	while(itr != nullptr)
 	{
 		loop = itr;
@@ -235,13 +247,13 @@ template <typename T>
 bool LinkedList<T>::palindromeRecursive()
 {
 	bool midPt = false, cond = true;
-	Node *itr = head, *snap = head;
+	Node<T> *itr = head, *snap = head;
 	palindromeRecursive(snap, itr, cond, midPt);
 	return cond;
 }
 
 template <typename T>
-void LinkedList<T>::palindromeRecursive(Node *&snap, Node *itr, bool &cond, bool &midPt)
+void LinkedList<T>::palindromeRecursive(Node<T> *&snap, Node<T> *itr, bool &cond, bool &midPt)
 {
 	if(itr != nullptr && itr -> next != nullptr)
 		palindromeRecursive(snap, itr -> next, cond, midPt);
@@ -275,7 +287,7 @@ void LinkedList<T>::palindromeRecursive(Node *&snap, Node *itr, bool &cond, bool
 template <typename T>
 uint LinkedList<T>::findKthToLast(uint k)
 {
-	Node *ret = head, *loop = head;
+	Node<T> *ret = head, *loop = head;
 	uint size = 0;
 
 	while(loop != nullptr)
@@ -294,24 +306,79 @@ template <typename T>
 uint LinkedList<T>::findKthToLastRecursive(uint k)
 {
 	uint count = 0;
-	Node *itr = head;
-	Node *ret = findKthToLastRecursive(itr, k, count);
+	Node<T> *itr = head;
+	Node<T> *ret = findKthToLastRecursive(itr, k, count);
 	return ret -> data;
 }
 
 template <typename T>
-typename LinkedList<T>::Node* LinkedList<T>::findKthToLastRecursive(Node* itr, uint k, uint &count)
+Node<T>* LinkedList<T>::findKthToLastRecursive(Node<T>* itr, uint k, uint &count)
 {
 	if(itr == nullptr)
 		return nullptr;
 
-	Node *ret = findKthToLastRecursive(itr -> next, k, count);
+	Node<T> *ret = findKthToLastRecursive(itr -> next, k, count);
 
 	count++;
 	if(count == k)
 		ret = itr;
 
 	return ret;
+}
+
+template <typename T>
+uint LinkedList<T>::intersectingLists(LinkedList a, LinkedList b)
+{
+	Node<T> *aPtr = a.head, *bPtr = b.head;
+
+	if(aPtr == nullptr || bPtr == nullptr)
+		return 0;
+
+	while(aPtr != nullptr)
+	{
+		bPtr = b.head;
+
+		while(bPtr != nullptr)
+		{
+			if(&(*aPtr) == &(*bPtr))
+				return aPtr -> data;
+
+			bPtr = bPtr -> next;
+		}
+
+		aPtr = aPtr -> next;
+	}
+
+	return 0;
+}
+
+template <typename T>
+Node<T> LinkedList<T>::loopDetection()
+{
+	Node<T> *slow = head, *fast = head;
+	if (slow == nullptr)
+		return nullptr;
+
+	while(fast != nullptr && fast -> next != nullptr)
+	{
+			slow = slow -> next;
+			fast = fast -> next -> next;
+			if(slow == fast)
+				break;
+	}
+
+	if(fast == nullptr || fast -> next == nullptr)
+		return nullptr;
+
+	slow = head;
+
+	while(slow != fast)
+	{
+		slow = slow -> next;
+		fast = fast -> next;
+	}
+
+	return slow;
 }
 
 

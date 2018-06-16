@@ -10,4 +10,8 @@ LinkedList<int> genSolutionListTest1();
 // Test 2
 LinkedList<int> genBaseListTest2();
 
+// Test 3
+LinkedList<int> genBaseListTest3();
+LinkedList<int> genBaseListTest4(LinkedList<int> in);
+
 #endif /* LINKEDLISTFUNCTIONS_H_ */
