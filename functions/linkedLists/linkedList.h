@@ -43,30 +43,15 @@ public:
 	LinkedList();
 	LinkedList(T val);
 
-	bool operator==(const LinkedList& rhs) const
-	{
-		Node<T> *rPtr = rhs.head, *tPtr = this -> head;
-
-		if( (rPtr == nullptr && tPtr != nullptr) || (rPtr != nullptr && tPtr == nullptr) )
-			return false;
-
-		while(rPtr != nullptr && tPtr != nullptr)
-		{
-			if(rPtr -> data != tPtr -> data)
-				return false;
-
-			rPtr = rPtr -> next;
-			tPtr = tPtr -> next;
-
-			if( (rPtr == nullptr && tPtr != nullptr) || (rPtr != nullptr && tPtr == nullptr) )
-				return false;
-		}
-
-		return true;
-	}
+	void clear();
+	~LinkedList();
+	LinkedList(const LinkedList &rhs);
+	LinkedList& operator=(const LinkedList &rhs);
+	bool operator==(const LinkedList &rhs) const;
 
 	// base linked list functionality
 	void append(T val);
+	void append(Node<T> *ptr);
 	void remove(Node<T> *prev, Node<T> *del);
 	void remove(Node<T> *del);
 	Node<T> *returnHead();

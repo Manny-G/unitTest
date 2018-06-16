@@ -18,10 +18,115 @@ LinkedList<T>::LinkedList(T val)
 	size = 1;
 }
 
+template <typename T>
+void LinkedList<T>::clear()
+{
+	Node<T> *itr = head, *next;
+
+	if(itr == nullptr)
+		return;
+
+	next = itr -> next;
+
+	while(itr != nullptr)
+	{
+		itr -> next = nullptr;
+		itr -> prev = nullptr;
+		delete itr;
+		size--;
+
+		itr = next;
+
+		if(next != nullptr)
+			next = next -> next;
+	}
+
+	head = nullptr;
+	tail = nullptr;
+}
+
+template <typename T>
+LinkedList<T>::~LinkedList()
+{
+	clear();
+}
+
+template <typename T>
+LinkedList<T>::LinkedList(const LinkedList<T> &rhs)
+{
+	head = nullptr;
+	tail = nullptr;
+	size = 0;
+
+	Node<T> *itr = rhs.tail;
+
+	while(itr != nullptr)
+	{
+		append(itr);
+		itr = itr -> prev;
+	}
+}
+
+template <typename T>
+LinkedList<T>& LinkedList<T>::operator=(const LinkedList&rhs)
+{
+	clear();
+	Node<T> *itr = rhs.tail;
+
+	while(itr != nullptr)
+	{
+		this -> append(itr);
+		itr = itr -> prev;
+	}
+}
+
+
+template <typename T>
+bool LinkedList<T>::operator==(const LinkedList& rhs) const
+{
+	Node<T> *rPtr = rhs.head, *tPtr = this -> head;
+
+	if( (rPtr == nullptr && tPtr != nullptr) || (rPtr != nullptr && tPtr == nullptr) )
+		return false;
+
+	while(rPtr != nullptr && tPtr != nullptr)
+	{
+		if( (rPtr -> data != tPtr -> data) ||
+			( (rPtr -> next != nullptr && tPtr -> next != nullptr) && (rPtr -> next -> data != tPtr -> next -> data) ) ||
+			( (rPtr -> prev != nullptr && tPtr -> prev != nullptr) && (rPtr -> prev -> data != tPtr -> prev -> data) ))
+			return false;
+
+		rPtr = rPtr -> next;
+		tPtr = tPtr -> next;
+
+		if( (rPtr == nullptr && tPtr != nullptr) || (rPtr != nullptr && tPtr == nullptr) )
+			return false;
+	}
+
+	return true;
+}
+
 template<typename T>
 void LinkedList<T>::append(T val)
 {
 	Node<T> *itr = new Node<T>(val);
+	if(head != nullptr)
+	{
+		itr -> next = head;
+		head -> prev = itr;
+	}
+
+	else
+		tail = itr;
+
+	head = itr;
+	size++;
+}
+
+template<typename T>
+void LinkedList<T>::append(Node<T> *ptr)
+{
+	Node<T> *itr = new Node<T>(*ptr);
 	if(head != nullptr)
 	{
 		itr -> next = head;

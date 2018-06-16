@@ -76,16 +76,16 @@ int main()
 	temp1.print();
 	temp2.print();
 
-	std::cout << "what is == " << (temp1 == temp2) << std::endl;
+	std::cout << "what is == " << (temp1 == temp2) << "\n" << std::endl;
 
 	temp1.removeDuplicatesSelfContained();
 	temp1.print();
 
-	std::cout << "what is == " << (temp1 == temp2) << std::endl;
+	std::cout << "what is == " << (temp1 == temp2) << "\n" << std::endl;
 
 	temp1.append(3);
 	temp1.print();
-	std::cout << "what is == " << (temp1 == temp2) << std::endl;*/
+	std::cout << "what is == " << (temp1 == temp2) << "\n" << std::endl;*/
 
 
 	// Testing l.l. recursive palindrome
@@ -104,6 +104,25 @@ int main()
 	uint valRec = temp1.findKthToLastRecursive(8);
 	cout << "valRec is " << valRec << endl;*/
 
+
+	// testing l.l. big three
+	LinkedList<int> temp1 = genBaseListTest1();
+	LinkedList<int> temp2(temp1);
+	temp1.print();
+	temp2.print();
+
+	std::cout << "what is == " << (temp1 == temp2) << "\n" << std::endl;
+
+	LinkedList<int> temp3;
+	temp3 = temp1;
+	temp3.print();
+
+	std::cout << "what is == " << (temp1 == temp3) << "\n" << std::endl;
+
+	temp3.append('9');
+	temp3.print();
+	temp2 = temp3;
+	std::cout << "what is == " << (temp2 == temp3) << "\n" << std::endl;
 
 	return 0;
 }
