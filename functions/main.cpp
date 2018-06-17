@@ -15,23 +15,15 @@ int main()
 	s1.push(1);
 	s1.print();
 	cout << "peeking at " << s1.top() << endl;
-	cout << "max is " << s1.getMax() << endl;
-	cout << "min is " << s1.getMin() << endl;
 	s1.push(7);
 	s1.print();
 	cout << "peeking at " << s1.top() << endl;
-	cout << "max is " << s1.getMax() << endl;
-	cout << "min is " << s1.getMin() << endl;
 	cout << "popping " << s1.pop() << endl;
 	s1.print();
 	cout << "peeking at " << s1.top() << endl;
-	cout << "max is " << s1.getMax() << endl;
-	cout << "min is " << s1.getMin() << endl;
 	cout << "popping " << s1.pop() << endl;
 	s1.print();
 	cout << "peeking at " << s1.top() << endl;
-	cout << "max is " << s1.getMax() << endl;
-	cout << "min is " << s1.getMin() << endl;
 	cout << "popping " << s1.pop() << endl;
 
 	return 0;

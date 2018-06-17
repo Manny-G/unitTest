@@ -54,7 +54,7 @@ T Stack<T>::pop()
 {
 	if(getSize() > 0)
 	{
-		auto itr = stackArray.end();
+		auto itr = (stackArray.end() - 1);
 		T ret = *itr;
 		stackArray.erase(stackArray.end() - 1);
 		return ret;
