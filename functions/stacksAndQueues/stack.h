@@ -5,13 +5,15 @@
 #include <iostream>
 using uint = unsigned int;
 
-template<typename T>
+// present for retrieving min/max
+// values in O(1) time
+/*template<typename T>
 class StackNode
 {
 	T data;
 	T min;
 	T max;
-};
+};*/
 
 template <typename T>
 class Stack
