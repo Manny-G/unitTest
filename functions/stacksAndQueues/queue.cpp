@@ -52,24 +52,33 @@ void Queue<T>::push(const T &data)
 template <typename T>
 T Queue<T>::pop()
 {
-	auto itr = queueArray.begin();
-	T ret = *itr;
-	queueArray.erase(queueArray.begin());
-	return ret;
+	if(getSize() > 0)
+	{
+		auto itr = queueArray.begin();
+		T ret = *itr;
+		queueArray.erase(queueArray.begin());
+		return ret;
+	}
 }
 
 template <typename T>
 T Queue<T>::front()
 {
-	auto itr = (queueArray.begin());
-	return *itr;
+	if(getSize() > 0)
+	{
+		auto itr = (queueArray.begin());
+		return *itr;
+	}
 }
 
 template <typename T>
 T Queue<T>::back()
 {
-	auto itr = (queueArray.end() - 1);
-	return *itr;
+	if(getSize() > 0)
+	{
+		auto itr = (queueArray.end() - 1);
+		return *itr;
+	}
 }
 
 template <typename T>

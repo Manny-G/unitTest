@@ -5,6 +5,14 @@
 #include <iostream>
 using uint = unsigned int;
 
+template<typename T>
+class StackNode
+{
+	T data;
+	T min;
+	T max;
+};
+
 template <typename T>
 class Stack
 {
@@ -12,12 +20,14 @@ private:
 	std::vector<T> stackArray;
 
 public:
+	// class functionality
 	Stack();
 	Stack(const Stack &rhs);
 	~Stack();
 	const Stack &operator=(const Stack &rhs);
 	bool operator==(const Stack &rhs) const;
 
+	// base stack functionality
 	void clear();
 	void push(const T &data);
 	T pop();

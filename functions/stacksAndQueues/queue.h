@@ -12,12 +12,14 @@ private:
 	std::vector<T> queueArray;
 
 public:
+	// class functionality
 	Queue();
 	Queue(const Queue &rhs);
 	~Queue();
 	const Queue &operator=(const Queue &rhs);
 	bool operator==(const Queue &rhs) const;
 
+	// base queue functionality
 	void clear();
 	void push(const T &data);
 	T pop();

@@ -52,17 +52,23 @@ void Stack<T>::push(const T &data)
 template <typename T>
 T Stack<T>::pop()
 {
-	auto itr = stackArray.end();
-	T ret = *itr;
-	stackArray.erase(stackArray.end() - 1);
-	return ret;
+	if(getSize() > 0)
+	{
+		auto itr = stackArray.end();
+		T ret = *itr;
+		stackArray.erase(stackArray.end() - 1);
+		return ret;
+	}
 }
 
 template <typename T>
 T Stack<T>::top()
 {
-	auto itr = (stackArray.end() - 1);
-	return *itr;
+	if(getSize() > 0)
+	{
+		auto itr = (stackArray.end() - 1);
+		return *itr;
+	}
 }
 
 template <typename T>
