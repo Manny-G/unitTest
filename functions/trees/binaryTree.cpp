@@ -69,7 +69,16 @@ const BinaryTree<T> &BinaryTree<T>::operator=(BinaryTree<T> &&rhs)
 template <typename T>
 bool BinaryTree<T>::operator==(const BinaryTree &rhs) const
 {
+	if(this == &rhs)
+		return true;
 
+	if( (root == nullptr && rhs.root != nullptr) || (root != nullptr && rhs.root == nullptr))
+		return false;
+
+	bool retCond = true;
+	recursiveCheck(root, rhs.root, retCond);
+
+	return retCond;
 }
 
 template <typename T>
@@ -110,8 +119,23 @@ void BinaryTree<T>::recursiveCopy(BT::Node<T> *recRoot, BT::Node<T> *rhsRecRoot)
 }
 
 template <typename T>
-void BinaryTree<T>::recursiveMove(BT::Node<T> *recRoot, BT::Node<T> *rhsRecRoot)
-{}
+void BinaryTree<T>::recursiveCheck(const BT::Node<T> *recRoot, const BT::Node<T> *rhsRecRoot, bool &retCond) const
+{
+	if(recRoot == nullptr && rhsRecRoot == nullptr)
+		return;
+
+	else if( (recRoot == nullptr && rhsRecRoot != nullptr) || (recRoot != nullptr && rhsRecRoot == nullptr))
+		retCond = false;
+
+	else if(recRoot -> data != rhsRecRoot -> data)
+		retCond = false;
+
+	if(retCond == true)
+		recursiveCheck(recRoot -> left, rhsRecRoot -> left, retCond);
+
+	if(retCond == true)
+		recursiveCheck(recRoot -> right, rhsRecRoot -> right, retCond);
+}
 
 template <typename T>
 void BinaryTree<T>::append(T val)
@@ -216,6 +240,53 @@ BT::Node<T> *&BinaryTree<T>::getSmallestInRightSubTree(BT::Node<T> *recRoot)
 }
 
 template <typename T>
+bool BinaryTree<T>::find(T val)
+{
+	if(root == nullptr)
+		return false;
+
+	bool retCond = false;
+	findRecursive(root, val, retCond);
+
+	return retCond;
+}
+
+template <typename T>
+void BinaryTree<T>::findRecursive(BT::Node<T> *recRoot, T val, bool &retCond)
+{
+	if(recRoot == nullptr)
+		return;
+
+	if(recRoot -> data == val)
+		retCond = true;
+
+	if(recRoot -> left != nullptr && retCond == false)
+		findRecursive(recRoot -> left, val, retCond);
+
+	if(recRoot -> right != nullptr && retCond == false)
+		findRecursive(recRoot -> right, val, retCond);
+}
+
+template <typename T>
+bool BinaryTree<T>::isEmpty()
+{
+	if(root == nullptr)
+		return true;
+
+	else
+		return false;
+}
+
+template <typename T>
+void BinaryTree<T>::print()
+{
+	if(root == nullptr)
+		return;
+
+	postorder(root, 2);
+}
+
+template <typename T>
 void BinaryTree<T>::postorder(BT::Node<T>* p, int indent)
 {
 	if(p != NULL) {
@@ -236,25 +307,6 @@ void BinaryTree<T>::postorder(BT::Node<T>* p, int indent)
 		}
 	}
 }
-
-template <typename T>
-void BinaryTree<T>::print()
-{
-	if(root == nullptr)
-		return;
-
-	postorder(root, 2);
-}
-
-template <typename T>
-void BinaryTree<T>::printPreOrder()
-{}
-template <typename T>
-void BinaryTree<T>::printInOrder()
-{}
-template <typename T>
-void BinaryTree<T>::printPostOrder()
-{}
 
 #endif /* TREES_BINARYTREE_H_ */
 

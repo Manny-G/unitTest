@@ -90,6 +90,9 @@ bool LinkedList<T>::operator==(const LinkedList& rhs) const
 {
 	LL::Node<T> *rPtr = rhs.head, *tPtr = this -> head;
 
+	if(this == &rhs)
+		return true;
+
 	if( (rPtr == nullptr && tPtr != nullptr) || (rPtr != nullptr && tPtr == nullptr) )
 		return false;
 

@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <iomanip>
-#include <algorithm>
 
 using uint = unsigned int;
 
@@ -96,19 +95,24 @@ public:
 	// base binary tree functionality
 	void clear();
 	void clearRecursive(BT::Node<T> *recRoot);
+
 	void recursiveCopy(BT::Node<T> *recRoot, BT::Node<T> *rhsRecRoot);
-	void recursiveMove(BT::Node<T> *recRoot, BT::Node<T> *rhsRecRoot);
+	void recursiveCheck(const BT::Node<T> *recRoot, const BT::Node<T> *rhsRecRoot, bool &retCond) const;
+
 	void append(T val);
 	void appendRecursive(BT::Node<T> *recRoot, BT::Node<T> *node);
+
 	void remove(T val);
 	void removeRecursive(BT::Node<T> *&recRoot, T val);
 	BT::Node<T> *&getSmallestInRightSubTree(BT::Node<T> *recRoot);
 
-	void postorder(BT::Node<T>* p, int indent);
+	bool find(T val);
+	void findRecursive(BT::Node<T> *recRoot, T val, bool &retCond);
+
+	bool isEmpty();
+
 	void print();
-	void printPreOrder();
-	void printInOrder();
-	void printPostOrder();
+	void postorder(BT::Node<T>* p, int indent);
 };
 #include "binaryTree.cpp"
 
