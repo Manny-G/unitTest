@@ -70,13 +70,16 @@ LinkedList<T>::LinkedList(const LinkedList<T> &rhs)
 template <typename T>
 const LinkedList<T>& LinkedList<T>::operator=(const LinkedList&rhs)
 {
-	clear();
-	LL::Node<T> *itr = rhs.tail;
-
-	while(itr != nullptr)
+	if(this != &rhs)
 	{
-		this -> append(itr);
-		itr = itr -> prev;
+		clear();
+		LL::Node<T> *itr = rhs.tail;
+
+		while(itr != nullptr)
+		{
+			this -> append(itr);
+			itr = itr -> prev;
+		}
 	}
 
 	return *this;
