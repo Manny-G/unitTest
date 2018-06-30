@@ -37,10 +37,10 @@ public:
 	AVLTree();
 	AVLTree(T val);
 	AVLTree(const AVLTree &rhs);
-	AVLTree(AVLTree &&rhs);
+	//AVLTree(AVLTree &&rhs);
 	~AVLTree();
 	AVLTree &operator=(const AVLTree &rhs);
-	AVLTree &operator=(AVLTree &&rhs);
+	//AVLTree &operator=(AVLTree &&rhs);
 	bool operator==(const AVLTree &rhs) const;
 
 	void clear();
@@ -65,7 +65,7 @@ public:
 	AVL::Node<T> *&getSmallestInRightSubTree(AVL::Node<T> *recRoot);
 
 	bool find(T val);
-	void findRecursive(AVL::Node<T> *recRoot, T val);
+	void findRecursive(AVL::Node<T> *recRoot, T val, bool &retCond);
 
 	bool isEmpty();
 

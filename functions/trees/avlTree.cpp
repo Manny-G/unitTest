@@ -472,15 +472,41 @@ AVL::Node<T> *&AVLTree<T>::getSmallestInRightSubTree(AVL::Node<T> *recRoot)
 
 template <typename T>
 bool AVLTree<T>::find(T val)
-{}
+{
+	if(root == nullptr)
+		return false;
+
+	bool retCond = false;
+	findRecursive(root, val, retCond);
+
+	return retCond;
+}
 
 template <typename T>
-void AVLTree<T>::findRecursive(AVL::Node<T> *recRoot, T val)
-{}
+void AVLTree<T>::findRecursive(AVL::Node<T> *recRoot, T val, bool &retCond)
+{
+	if(recRoot == nullptr)
+		return;
+
+	if(recRoot -> data == val)
+		retCond = true;
+
+	if(recRoot -> left != nullptr && retCond == false)
+		findRecursive(recRoot -> left, val, retCond);
+
+	if(recRoot -> right != nullptr && retCond == false)
+		findRecursive(recRoot -> right, val, retCond);
+}
 
 template <typename T>
 bool AVLTree<T>::isEmpty()
-{}
+{
+	if(root == nullptr)
+		return true;
+
+	else
+		return false;
+}
 
 template <typename T>
 void AVLTree<T>::print()
