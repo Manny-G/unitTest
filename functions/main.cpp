@@ -1,5 +1,5 @@
-#include <linkedList.h>
-#include <setOfStacks.h>
+#include "linkedList.h"
+#include "setOfStacks.h"
 #include "insertionSort.h"
 #include "arraysAndStrings.h"
 #include "linkedListFunctions.h"
@@ -10,6 +10,8 @@
 #include "queueOfStacks.h"
 #include "animalShelter.h"
 #include "binaryTree.h"
+#include "avlTree.h"
+#include "graph.h"
 
 using namespace std;
 using fPtr = uint (*)(uint);
