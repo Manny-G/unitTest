@@ -113,7 +113,59 @@ public:
 
 	void print();
 	void postorder(BT::Node<T>* p, int indent);
+
+
+	// extra functions
+	BinaryTree arrayToTree(std::vector<T> arr);
+	void arrayToTree(std::vector<T> arr, int startIdx, int endIdx);
+
+	std::vector<LinkedList<uint> *> depthListsPreOrder();
+	void depthListsPreOrder(BT::Node<T> *recRoot, std::vector<LinkedList<uint> *> &vec, uint level);
+
+	std::vector<LinkedList<uint> *> depthListsBFS();
+
+	bool checkBalanced();
+	int checkBalanced(BT::Node<T> *recRoot, int depth, bool &isBalanced);
+
+	bool isBST();
+	void isBST(BT::Node<T> *recRoot, std::vector<T> &vec);
 };
+
+template <typename T>
+bool BinaryTree<T>::isBST()
+{
+	if(root == nullptr)
+		return true;
+
+	std::vector<T> vec;
+	isBST(root, vec);
+
+	bool cond = true;
+	for(uint i = 0 ; i < (vec.size() - 1) ; i++)
+	{
+		if(vec[i] > vec[i + 1])
+		{
+			cond = false;
+			break;
+		}
+	}
+
+	return cond;
+}
+
+template <typename T>
+void BinaryTree<T>::isBST(BT::Node<T> *recRoot, std::vector<T> &vec)
+{
+	if(recRoot == nullptr)
+		return;
+
+	isBST(recRoot -> left, vec);
+	vec.push_back(recRoot -> data);
+	isBST(recRoot -> right, vec);
+}
+
+
+
 #include "binaryTree.cpp"
 
 #endif /* TREES_BINARYTREE_H_ */

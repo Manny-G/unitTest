@@ -18,8 +18,13 @@ class Graph
 public:
     Graph(uint size);
     void addEdge(uint vert, uint edge);
-    void BFS(uint s);
-    void DFS(uint s);
+    void BFS(uint startVert);
+    void DFS(uint startVert);
+
+    void recDFS(uint startVert);
+    void recDFS(uint recStartVert, vector<bool> &visited);
+
+    bool routeToNode(uint start, uint end);
 };
 
 Graph::Graph(uint size)
@@ -93,5 +98,64 @@ void Graph::DFS(uint startVert)
 		cout << currVert << " ";
 	}
 }
+
+void Graph::recDFS(uint startVert)
+{
+	vector<bool> visited;
+
+	for(uint i = 0 ; i < this -> size ; i++)
+		visited.push_back(false);
+
+	visited[startVert] = true;
+
+	recDFS(startVert, visited);
+}
+
+void Graph::recDFS(uint recStartVert, vector<bool> &visited)
+{
+	cout << recStartVert << " ";
+
+	for(uint &i : this -> adjList[recStartVert])
+	{
+		if(!visited[i])
+		{
+			visited[i] = true;
+			recDFS(i, visited);
+		}
+	}
+
+}
+
+bool Graph::routeToNode(uint start, uint end)
+{
+	vector<bool> visited;
+	Queue<uint> qu;
+
+	for(uint i = 0 ; i < this -> size ; i++)
+		visited.push_back(false);
+
+	qu.push(start);
+	visited[start] = true;
+
+	while(!qu.isEmpty())
+	{
+		uint currVert = qu.pop();
+
+		for(uint &i : this -> adjList[currVert])
+		{
+				if(i == end)
+					return true;
+
+				if(!visited[i])
+				{
+					visited[i] = true;
+					qu.push(i);
+				}
+		}
+	}
+
+	return false;
+}
+
 
 #endif /* TREES_GRAPH_H_ */

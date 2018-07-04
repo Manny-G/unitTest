@@ -60,6 +60,7 @@ public:
 	LL::Node<T> *returnHead();
 	LL::Node<T> *returnTail();
 	bool findInVec(std::vector<T> vec, T value);
+	uint getSize();
 
 	// extra
 	void print();

@@ -298,6 +298,12 @@ bool LinkedList<T>::findInVec(std::vector<T> vec, T value)
 }
 
 template<typename T>
+uint LinkedList<T>::getSize()
+{
+	return size;
+}
+
+template<typename T>
 void LinkedList<T>::removeDuplicates()
 {
 	LL::Node<T> *lead = head, *lag = lead;

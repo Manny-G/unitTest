@@ -308,6 +308,144 @@ void BinaryTree<T>::postorder(BT::Node<T>* p, int indent)
 	}
 }
 
+// extra functions
+template <typename T>
+BinaryTree<T> BinaryTree<T>::arrayToTree(std::vector<T> arr)
+{
+	if(arr.size() == 0)
+		return *this;
+	if(arr.size() == 1)
+	{
+		this -> append(arr[0]);
+		return *this;
+	}
+
+	arrayToTree(arr, 0, arr.size() - 1);
+
+	return *this;
+}
+
+template <typename T>
+void BinaryTree<T>::arrayToTree(std::vector<T> arr, int startId, int endIdx)
+{
+	if(endIdx < startId)
+		return;
+
+	int midIdx = (endIdx + startId) / 2;
+
+	this -> append(arr[midIdx]);
+
+	arrayToTree(arr, startId, midIdx - 1);
+	arrayToTree(arr, midIdx + 1, endIdx);
+}
+
+template <typename T>
+std::vector<LinkedList<uint> *> BinaryTree<T>::depthListsPreOrder()
+{
+	std::vector<LinkedList<uint> *> ret;
+	depthListsPreOrder(this -> root, ret, 0);
+	return ret;
+}
+
+template <typename T>
+void BinaryTree<T>::depthListsPreOrder(BT::Node<T> *recRoot, std::vector<LinkedList<uint> *> &vec, uint level)
+{
+	if(recRoot == nullptr)
+		return;
+
+	LinkedList<uint> *currLevelList;
+
+	if(vec.size() == level)
+	{
+		currLevelList = new LinkedList<T>;
+		vec.push_back(currLevelList);
+	}
+
+	else
+		currLevelList = vec[level];
+
+	currLevelList->append(recRoot -> data);
+	depthListsPreOrder(recRoot -> left, vec, level + 1);
+	depthListsPreOrder(recRoot -> right, vec, level + 1);
+}
+
+template <typename T>
+std::vector<LinkedList<uint> *> BinaryTree<T>::depthListsBFS()
+{
+	std::vector<LinkedList<uint> *> ret;
+
+	if(root == nullptr)
+		return ret;
+
+	LinkedList<T> *childList = new LinkedList<T>(root -> data);
+	LinkedList<BT::Node<T>*> childNodeList(root);
+	LinkedList<BT::Node<T>*> parentNodeList;
+	LL::Node<BT::Node<T>*> *itr;
+
+	while(childNodeList.getSize() > 0)
+	{
+		ret.push_back(childList);
+		parentNodeList = childNodeList;
+		childNodeList.clear();
+		childList = new LinkedList<T>;
+
+		itr = parentNodeList.returnHead();
+		while(itr != nullptr)
+		{
+			if(itr -> data -> left != nullptr)
+			{
+				childNodeList.append(itr -> data -> left);
+				childList -> append(itr -> data -> left -> data);
+			}
+
+			if(itr -> data -> right != nullptr)
+			{
+				childNodeList.append(itr -> data -> right);
+				childList -> append(itr -> data -> right -> data);
+			}
+
+			itr = itr -> next;
+		}
+	}
+
+	return ret;
+}
+
+template <typename T>
+bool BinaryTree<T>::checkBalanced()
+{
+	if(root == nullptr)
+		return true;
+
+	bool ret = true;
+	checkBalanced(root, 0, ret);
+	return ret;
+}
+
+template <typename T>
+int BinaryTree<T>::checkBalanced(BT::Node<T> *recRoot, int depth, bool &isBalanced)
+{
+	if(isBalanced == false)
+		return -1;
+	else if(recRoot == nullptr)
+		return (depth - 1);
+
+	int leftHeight = checkBalanced(recRoot -> left, depth + 1, isBalanced);
+	int rightHeight = checkBalanced(recRoot -> right, depth + 1, isBalanced);
+
+	// check balance
+	int balance = (leftHeight - rightHeight);
+	if(balance < -1 || balance > 1)
+		isBalanced = false;
+
+	// return max
+	if(leftHeight > rightHeight)
+		return leftHeight;
+
+	else
+		return rightHeight;
+}
+
 #endif /* TREES_BINARYTREE_H_ */
 
 
