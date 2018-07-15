@@ -1,16 +1,23 @@
 #ifdef TREES_BINARYTREE_H_
 
 #include "binaryTree.h"
+
+										/***************************
+										 *** Class Functionality ***
+										 ***************************/
+
 template <typename T>
 BinaryTree<T>::BinaryTree()
 {
 	root = nullptr;
+	size = 0;
 }
 
 template <typename T>
 BinaryTree<T>::BinaryTree(T val)
 {
 	root = new BT::Node<T>(val);
+	size = 1;
 }
 
 template <typename T>
@@ -19,6 +26,7 @@ BinaryTree<T>::BinaryTree(const BinaryTree<T> &rhs)
 	std::cout << ">>>calling copy constructor (BinaryTree)" << std::endl;
 	root = new BT::Node<T>(*(rhs.root));
 	recursiveCopy(root, rhs.root);
+	size = rhs.size;
 }
 
 /*template <typename T>
@@ -46,6 +54,7 @@ const BinaryTree<T> &BinaryTree<T>::operator=(const BinaryTree &rhs)
 		clear();
 		root = new BT::Node<T>(*(rhs.root));
 		recursiveCopy(root, rhs.root);
+		size = rhs.size;
 	}
 
 	return *this;
@@ -81,6 +90,10 @@ bool BinaryTree<T>::operator==(const BinaryTree &rhs) const
 	return retCond;
 }
 
+										/******************************
+										 *** BST Core Functionality ***
+										 ******************************/
+
 template <typename T>
 void BinaryTree<T>::clear()
 {
@@ -88,6 +101,7 @@ void BinaryTree<T>::clear()
 		return;
 
 	clearRecursive(root);
+	size = 0;
 }
 
 template <typename T>
@@ -147,6 +161,8 @@ void BinaryTree<T>::append(T val)
 
 	else
 		appendRecursive(root, node);
+
+	size++;
 }
 
 template <typename T>
@@ -176,6 +192,7 @@ void BinaryTree<T>::remove(T val)
 		return;
 
 	removeRecursive(root, val);
+	size--;
 }
 
 template <typename T>
@@ -270,7 +287,7 @@ void BinaryTree<T>::findRecursive(BT::Node<T> *recRoot, T val, bool &retCond)
 template <typename T>
 bool BinaryTree<T>::isEmpty()
 {
-	if(root == nullptr)
+	if(size > 0)
 		return true;
 
 	else
@@ -308,7 +325,93 @@ void BinaryTree<T>::postorder(BT::Node<T>* p, int indent)
 	}
 }
 
-// extra functions
+template <typename T>
+void BinaryTree<T>::printPreOrderList()
+{
+	if(root == nullptr)
+			return;
+
+	printPreOrderList(root);
+
+	std::cout << std::endl;
+}
+
+template <typename T>
+void BinaryTree<T>::printPreOrderList(BT::Node<T>* recRoot)
+{
+	if(recRoot == nullptr)
+		return;
+
+	std::cout << recRoot -> data << " ";
+	printPreOrderList(recRoot -> left);
+	printPreOrderList(recRoot -> right);
+}
+
+template <typename T>
+void BinaryTree<T>::printInOrderList()
+{
+	if(root == nullptr)
+			return;
+
+	printInOrderList(root);
+
+	std::cout << std::endl;
+}
+
+template <typename T>
+void BinaryTree<T>::printInOrderList(BT::Node<T>* recRoot)
+{
+	if(recRoot == nullptr)
+		return;
+
+	printInOrderList(recRoot -> left);
+
+	std::cout << recRoot -> data << " ";
+
+	printInOrderList(recRoot -> right);
+}
+
+template <typename T>
+void BinaryTree<T>::printPostOrderList()
+{
+	if(root == nullptr)
+			return;
+
+	printPostOrderList(root);
+
+	std::cout << std::endl;
+}
+
+template <typename T>
+void BinaryTree<T>::printPostOrderList(BT::Node<T>* recRoot)
+{
+	if(recRoot == nullptr)
+		return;
+
+	printPostOrderList(recRoot -> left);
+	printPostOrderList(recRoot -> right);
+	std::cout << recRoot -> data << " ";
+}
+
+template <typename T>
+BT::Node<T>* BinaryTree<T>::getRoot()
+{
+	return root;
+}
+
+template <typename T>
+uint BinaryTree<T>::getSize()
+{
+	return size;
+}
+
+										/**************************************
+										 *** Practice Problem Functionality ***
+										 **************************************/
+
+/*********************
+ *** Array To Tree ***
+ *********************/
 template <typename T>
 BinaryTree<T> BinaryTree<T>::arrayToTree(std::vector<T> arr)
 {
@@ -339,6 +442,9 @@ void BinaryTree<T>::arrayToTree(std::vector<T> arr, int startId, int endIdx)
 	arrayToTree(arr, midIdx + 1, endIdx);
 }
 
+/**********************************
+ *** List Of Depths - Recursive ***
+ **********************************/
 template <typename T>
 std::vector<LinkedList<uint> *> BinaryTree<T>::depthListsPreOrder()
 {
@@ -369,6 +475,9 @@ void BinaryTree<T>::depthListsPreOrder(BT::Node<T> *recRoot, std::vector<LinkedL
 	depthListsPreOrder(recRoot -> right, vec, level + 1);
 }
 
+/****************************
+ *** List Of Depths - BFS ***
+ ****************************/
 template <typename T>
 std::vector<LinkedList<uint> *> BinaryTree<T>::depthListsBFS()
 {
@@ -411,6 +520,9 @@ std::vector<LinkedList<uint> *> BinaryTree<T>::depthListsBFS()
 	return ret;
 }
 
+/*********************
+ *** Check Balance ***
+ *********************/
 template <typename T>
 bool BinaryTree<T>::checkBalanced()
 {
@@ -444,6 +556,338 @@ int BinaryTree<T>::checkBalanced(BT::Node<T> *recRoot, int depth, bool &isBalanc
 
 	else
 		return rightHeight;
+}
+
+/********************
+ *** Is Valid BST ***
+ ********************/
+template <typename T>
+bool BinaryTree<T>::isBST()
+{
+	if(root == nullptr)
+		return true;
+
+	std::vector<T> vec;
+	isBST(root, vec);
+
+	bool cond = true;
+	for(uint i = 0 ; i < (vec.size() - 1) ; i++)
+	{
+		if(vec[i] > vec[i + 1])
+		{
+			cond = false;
+			break;
+		}
+	}
+
+	return cond;
+}
+
+template <typename T>
+void BinaryTree<T>::isBST(BT::Node<T> *recRoot, std::vector<T> &vec)
+{
+	if(recRoot == nullptr)
+		return;
+
+	isBST(recRoot -> left, vec);
+	vec.push_back(recRoot -> data);
+	isBST(recRoot -> right, vec);
+}
+
+/***********************
+ *** Check Successor ***
+ ***********************/
+template <typename T>
+T BinaryTree<T>::inOrderSuccessor(T val)
+{
+	if(root == nullptr)
+		return true;
+
+	bool found = false;
+	bool endRec = false;
+	T retVal = -1;
+	inOrderSuccessor(root, val, retVal, found, endRec);
+
+	return retVal;
+}
+
+template <typename T>
+void BinaryTree<T>::inOrderSuccessor(BT::Node<T> *recRoot, T val, T &retVal, bool &found, bool &endRec)
+{
+	if(recRoot == nullptr || endRec == true)
+		return;
+
+	inOrderSuccessor(recRoot -> left, val, retVal, found, endRec);
+
+	if(found == true && endRec == false)
+	{
+		endRec = true;
+		retVal = recRoot -> data;
+		return;
+	}
+
+	if(recRoot -> data == val)
+		found = true;
+
+	inOrderSuccessor(recRoot -> right,  val, retVal, found, endRec);
+}
+
+/*******************
+ *** Build Order ***
+ *******************/
+template <typename T>
+std::vector< std::vector<T> > BinaryTree<T>::buildAdjMatrix(std::vector<T> nodes, std::vector<std::pair<T, T>>  dep)
+{
+	std::vector< std::vector<T> > ret;
+	std::vector<T> sublist;
+
+	for(auto i : nodes)
+	{
+		sublist.clear();
+
+		for(auto j : dep)
+		{
+			if(j.second == i)
+			{
+				sublist.push_back(j.first);
+			}
+		}
+
+		ret.push_back(sublist);
+	}
+
+	return ret;
+}
+
+template <typename T>
+std::vector<T> BinaryTree<T>::buildOrder(std::vector<T> nodes, std::vector<std::pair<T, T>> dependencies)
+{
+	std::vector< std::vector<T> > adjMat = buildAdjMatrix(nodes, dependencies);
+
+	uint count = 0;
+	for(auto i : adjMat)
+	{
+		std::cout << count << ":";
+		for(auto j : i)
+		{
+			std::cout << j << " ";
+		}
+		std::cout << std::endl;
+		count++;
+	}
+
+	std::vector<T> ret = buildOrder(nodes, adjMat);
+	return ret;
+}
+
+template <typename T>
+std::vector<T> BinaryTree<T>::buildOrder(std::vector<T> nodes, std::vector< std::vector<T> > adjMat)
+{
+	Stack<T> st;
+	std::vector<bool> seenList;
+	std::vector<T> ret;
+
+	// initialize everything node position to “not seen”
+	for(auto i : nodes)
+		seenList.push_back(false);
+
+	// initialize the stack with values that don’t have dependencies
+	for(uint i = 0 ; i < adjMat.size() ; i++)
+	{
+		if(adjMat[i].size() == 0)
+		{
+			seenList[i] = true;
+			st.push(nodes[i]);
+			break;
+		}
+	}
+
+	// now for the fun part of iterative DFS
+	T currNode;
+	bool canBuild;
+
+	while(!st.isEmpty())
+	{
+		currNode = st.pop();
+		ret.push_back(currNode);
+
+		// for each node
+		for(uint i = 0 ; i < adjMat.size() ; i++)
+		{
+
+			canBuild = true;
+			// for each edge of a particular node
+			for(uint j = 0 ; j < adjMat[i].size() ; j++)
+			{
+				if(seenList[adjMat[i][j]] == false)
+				{
+					canBuild = false;
+					break;
+				}
+			}
+
+			if(canBuild == true && seenList[i] == false)
+			{
+				seenList[i] = true;
+				st.push(nodes[i]);
+				break;
+			}
+		}
+	}
+
+	return ret;
+}
+
+/*****************************
+ *** First Common Ancestor ***
+ *****************************/
+template <typename T>
+T BinaryTree<T>::firstCommonAncestor(T a, T b)
+{
+	if(root == nullptr)
+		return -1;
+
+	PathStruct pathA, pathB, filler;
+
+	pathA = mapPath(root, a, filler);
+	pathB = mapPath(root, b, filler);
+
+	uint minCount = pathA.count < pathB.count ? pathA.count : pathB.count;
+
+	std::cout << "\nPathA" << std::endl;
+	for(uint i = 0 ; i < pathA.count ; i++)
+	{
+		std::cout << ( pathA.path & (0x0001 << i) ) << " ";
+	}
+
+	std::cout << "\nPathB" << std::endl;
+
+	for(uint i = 0 ; i < pathB.count ; i++)
+	{
+		std::cout << ( pathB.path & (0x0001 << i) ) << " ";
+	}
+
+	std::cout << std::endl;
+
+	for(uint i = 0 ; i < minCount ; i++)
+	{
+		uint valA = pathA.path & (0x0001 << i);
+		uint valB = pathB.path & (0x0001 << i);
+		if(valA == valB)
+		{
+			filler.path += pathA.path & (0x0001 << i);
+			filler.count++;
+		}
+
+		else if(valA != valB && i == 0)
+		{
+			filler.path += pathA.path & (0x0001 << i);
+			break;
+		}
+
+		else
+			break;
+	}
+
+	uint count = 0;
+	return getValFromPath(root, filler, count);
+}
+
+template <typename T>
+PathStruct BinaryTree<T>::mapPath(BT::Node<T> *recRoot, T val, PathStruct recPath)
+{
+	if(recRoot -> data == val)
+	{
+		recPath.found = true;
+		return recPath;
+	}
+
+	if(recRoot -> left != nullptr)
+	{
+		recPath.path += (0 << recPath.count);
+		recPath.count++;
+		PathStruct ret = mapPath(recRoot -> left, val, recPath);
+
+		if(ret.found)
+			return ret;
+	}
+
+	if(recRoot -> right != nullptr)
+	{
+		if(recRoot -> left != nullptr)
+			recPath.count--;
+
+		recPath.path += (1 << recPath.count);
+		recPath.count++;
+		PathStruct ret = mapPath(recRoot -> right, val, recPath);
+
+		if(ret.found)
+			return ret;
+	}
+	return recPath;
+}
+
+template <typename T>
+T BinaryTree<T>::getValFromPath(BT::Node<T> *recRoot, PathStruct recPath, uint &currCount)
+{
+	if(currCount == recPath.count)
+		return recRoot -> data;
+
+	if( (recPath.path & (1 << currCount) ) == 0)
+	{
+		currCount++;
+		return getValFromPath(recRoot -> left, recPath, currCount);
+	}
+
+	else if( (recPath.path & (1 << currCount) ) != 0)
+	{
+		currCount++;
+		return getValFromPath(recRoot -> right, recPath, currCount);
+	}
+}
+
+/*********************
+ *** BST to Arrays ***
+ *********************/
+template <typename T>
+std::vector< std::vector<T> > BinaryTree<T>::BstToArrayPermutations()
+{
+	std::vector< std::vector<T> > ret;
+
+	if(root == nullptr)
+		return ret;
+
+	std::vector< BT::Node<T>* > nodes;
+	std::vector<T> recList;
+	BstToArrayPermutations(root, nodes, ret, recList);
+
+	return ret;
+}
+
+template <typename T>
+void BinaryTree<T>::BstToArrayPermutations(BT::Node<T> *recRoot, std::vector< BT::Node<T>* > nodes, std::vector< std::vector<T> > &vec, std::vector<T> recList)
+{
+	if(recRoot == nullptr)
+		return;
+
+	recList.push_back(recRoot -> data);
+
+	if(recRoot -> left != nullptr)
+		nodes.push_back(recRoot -> left);
+	if(recRoot -> right != nullptr)
+		nodes.push_back(recRoot -> right);
+	std::vector< BT::Node<T>* > recNodes;
+
+	for(uint i = 0 ; i < nodes.size() ; i++)
+	{
+		recNodes = nodes;
+		recNodes.erase( recNodes.begin() + i );
+		BstToArrayPermutations(nodes[i], recNodes, vec, recList);
+	}
+
+	if(recList.size() == this -> size)
+		vec.push_back(recList);
+
 }
 
 #endif /* TREES_BINARYTREE_H_ */

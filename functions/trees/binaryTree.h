@@ -6,6 +6,15 @@
 
 using uint = unsigned int;
 
+// used specifically for the
+// firstCommonAncestor() function
+struct PathStruct
+{
+	uint path = 0;
+	uint count = 0;
+	bool found = false;
+};
+
 namespace BT
 {
 	template <typename T>
@@ -80,6 +89,7 @@ class BinaryTree
 {
 private:
 	BT::Node<T> *root;
+	uint size;
 
 public:
 	// class functionality
@@ -92,7 +102,7 @@ public:
 	//const BinaryTree &operator=(BinaryTree &&rhs);
 	bool operator==(const BinaryTree &rhs) const;
 
-	// base binary tree functionality
+	// base binary search tree functionality
 	void clear();
 	void clearRecursive(BT::Node<T> *recRoot);
 
@@ -114,8 +124,19 @@ public:
 	void print();
 	void postorder(BT::Node<T>* p, int indent);
 
+	void printPreOrderList();
+	void printPreOrderList(BT::Node<T>* recRoot);
 
-	// extra functions
+	void printInOrderList();
+	void printInOrderList(BT::Node<T>* recRoot);
+
+	void printPostOrderList();
+	void printPostOrderList(BT::Node<T>* recRoot);
+
+	BT::Node<T>* getRoot();
+	uint getSize();
+
+	// practice problem functions
 	BinaryTree arrayToTree(std::vector<T> arr);
 	void arrayToTree(std::vector<T> arr, int startIdx, int endIdx);
 
@@ -129,42 +150,21 @@ public:
 
 	bool isBST();
 	void isBST(BT::Node<T> *recRoot, std::vector<T> &vec);
+
+	T inOrderSuccessor(T val);
+	void inOrderSuccessor(BT::Node<T> *recRoot, T val, T &retVal, bool &found, bool &endRec);
+
+	std::vector< std::vector<T> > buildAdjMatrix(std::vector<T> nodes, std::vector< std::pair<T, T> >  dep);
+	std::vector<T> buildOrder(std::vector<T> nodes, std::vector< std::pair<T, T> > dependencies);
+	std::vector<T> buildOrder(std::vector<T> nodes, std::vector< std::vector<T> > adjMat);
+
+	T firstCommonAncestor(T a, T b);
+	PathStruct mapPath(BT::Node<T> *recRoot, T val, PathStruct recPath);
+	T getValFromPath(BT::Node<T> *recRoot, PathStruct recPath, uint &currCount);
+
+	std::vector< std::vector<T> > BstToArrayPermutations();
+	void BstToArrayPermutations(BT::Node<T> *recRoot, std::vector< BT::Node<T>* > nodes, std::vector< std::vector<T> > &vec, std::vector<T> recList);
 };
-
-template <typename T>
-bool BinaryTree<T>::isBST()
-{
-	if(root == nullptr)
-		return true;
-
-	std::vector<T> vec;
-	isBST(root, vec);
-
-	bool cond = true;
-	for(uint i = 0 ; i < (vec.size() - 1) ; i++)
-	{
-		if(vec[i] > vec[i + 1])
-		{
-			cond = false;
-			break;
-		}
-	}
-
-	return cond;
-}
-
-template <typename T>
-void BinaryTree<T>::isBST(BT::Node<T> *recRoot, std::vector<T> &vec)
-{
-	if(recRoot == nullptr)
-		return;
-
-	isBST(recRoot -> left, vec);
-	vec.push_back(recRoot -> data);
-	isBST(recRoot -> right, vec);
-}
-
-
 
 #include "binaryTree.cpp"
 

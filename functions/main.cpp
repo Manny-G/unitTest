@@ -12,70 +12,101 @@
 #include "binaryTree.h"
 #include "avlTree.h"
 #include "graph.h"
+#include "recursionAndDynamicProg.h"
 
 using namespace std;
 using fPtr = uint (*)(uint);
 
 int main()
 {
-
-	BinaryTree<uint> b;
-	for(uint i = 0 ; i < 10 ; i++)
-		b.append(i);
-
-	b.print();
-
-	cout << "what I don't want happening" << endl;
-
-	BinaryTree<uint> b2;
-	std::vector<uint> arr;
-
-	for(uint i = 0 ; i < 10 ; i++)
-		arr.push_back(i);
-
-	b2.arrayToTree(arr);
-	b2.print();
-	cout << "what did I make?" << endl;
-
-	std::vector<LinkedList<uint> *> vec = b2.depthListsPreOrder();
-
-	for(auto i : vec)
+	/*** getNumSteps() ***/
+	int n = 10;
+	for(int i = 0 ; i < n ; i++)
 	{
-		cout << "layer contains:" << endl;
-		i->print();
-
+		cout << "rec of " << i << " printing solution: " << getNumStepsRec(i) << endl;
+		cout << "itr of " << i << " printing solution: " << getNumSteps(i) << "\n" << endl;
 	}
 
-	cout << "please god work this time?" << endl;
+	/*** getPath() ***/
+	uint grid[4][4];
+	bool walls[4][4];
 
-	std::vector<LinkedList<uint> *> vec2 = b2.depthListsBFS();
-	for(auto i : vec2)
+	uint **ptrGrid = new uint*[4];
+	bool **ptrWalls = new bool*[4];
+
+	for(uint i = 0 ; i < 4 ; i++)
 	{
-		cout << "layer contains:" << endl;
-		i->print();
-
+		ptrGrid[i] = new uint[4];
+		ptrWalls[i] = new bool[4];
 	}
 
-	cout << "is b balanced? " << b.checkBalanced() << endl;
-	cout << "is b2 balanced? " << b2.checkBalanced() << endl;
+	bool coinFlip;
+	srand(time(NULL));
 
-	b2.append(10);
-	cout << "is still b2 balanced? " << b2.checkBalanced() << endl;
-	b2.remove(10);
-	cout << "is b2 back to balance? " << b2.checkBalanced() << endl;
-	b2.remove(9);
-	b2.remove(8);
-	cout << "is b2 still balanced? " << b2.checkBalanced() << endl;
+	for(uint i = 0 ; i < 4 ; i++)
+	{
+		for(uint j = 0 ; j < 4 ; j++)
+		{
+			grid[i][j] = (i*4 + j);
+			ptrGrid[i][j] = (i*4 + j);
 
-	cout << "is b a BST? " << b.isBST() << endl;
-	cout << "is b2 a BST? " << b2.isBST() << endl;
-	b2.append(8);
-	b2.remove(7);
-	b2.append(7);
-	b2.print();
-	cout << "is b2 still a BST? " << b2.isBST() << endl;
+			coinFlip = rand() % 2;
 
+			walls[i][j] = coinFlip;
+			ptrWalls[i][j] = coinFlip;
+		}
+	}
 
+	cout << "ptrGrid is:" << endl;
+	for(uint i = 0 ; i < 4 ; i++)
+	{
+		for(uint j = 0 ; j < 4 ; j++)
+		{
+			cout << ptrGrid[i][j] << "\t";
+		}
+		cout << endl;
+	}
+
+	cout << "ptrWalls is:" << endl;
+	for(uint i = 0 ; i < 4 ; i++)
+	{
+		for(uint j = 0 ; j < 4 ; j++)
+		{
+			cout << ptrWalls[i][j] << "\t";
+		}
+		cout << endl;
+	}
+
+	cout << "grid is:" << endl;
+	for(uint i = 0 ; i < 4 ; i++)
+	{
+		for(uint j = 0 ; j < 4 ; j++)
+		{
+			cout << grid[i][j] << "\t";
+		}
+		cout << endl;
+	}
+
+	cout << "walls is:" << endl;
+	for(uint i = 0 ; i < 4 ; i++)
+	{
+		for(uint j = 0 ; j < 4 ; j++)
+		{
+			cout << walls[i][j] << "\t";
+		}
+		cout << endl;
+	}
+
+	vector<uint> path = traverseGrid(grid, walls);
+	vector<uint> ptrPath = traverseGrid(ptrGrid, ptrWalls);
+
+	cout << "path is:" << endl;
+	for(uint i : path)
+		cout << i << " ";
+
+	cout << "\nptrPath is:" << endl;
+	for(uint i : ptrPath)
+		cout << i << " ";
 
 	return 0;
 }
